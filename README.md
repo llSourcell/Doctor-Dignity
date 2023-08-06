@@ -14,7 +14,7 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 
 ## Training DoctorGPT
 
-DoctorGPT is a version of Meta's Llama2 7 billion parameter Large Language Model that was fine-tuned on a Medical Dialogue Dataset, then further improved using Reinforcement Learning & Constitutional AI. 
+DoctorGPT is a version of Meta's [Llama2](https://ai.meta.com/llama/) 7 billion parameter Large Language Model that was fine-tuned on a Medical Dialogue Dataset, then further improved using Reinforcement Learning & Constitutional AI. 
 
 #### Cloud Training
 
@@ -32,21 +32,25 @@ jupyter training.ipynb
 
 ```bash
 git clone https://github.com/username/repository.git
-cd repository
-make
+cd iOS
 ```
   
-3. Android
-4. Web
+2. Android
+
+```bash
+git clone https://github.com/username/repository.git
+cd android
+```
+
+3. Web
+
+```bash
+git clone https://github.com/username/repository.git
+cd Web
+```
 
 
  
-  
-
-
-
--     Available on iOS, Android, Web
-
 
 ## Dependencies
 - PyTorch
@@ -54,7 +58,7 @@ make
 - Numpy
 - 
 
-## Usage
-
 
 ## Credits
+
+Meta, MedAlpaca, Apache, & OctoML 
