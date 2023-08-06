@@ -9,11 +9,11 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 - Free Access 
 - Offline Usage 
 - Patient Confidentiality
-- Cross Platform Availability (iOS, Android, and Web)
+- Cross Platform Availability 
 - Self Improvement
 
 ## Dependencies
-- Datasets        (Access datasets from huggingface hub)
+- [Datasets](https://huggingface.co/docs/datasets/index)        (Access datasets from huggingface hub)
 - huggingface_hub (access huggingface data & models) 
 - numpy           (Use matrix math operations)
 - PyTorch         (Build Deep Learning models)
