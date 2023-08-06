@@ -14,7 +14,6 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 
 ## Training DoctorGPT
 
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/path/to/your/notebook)
 
 ## Using DoctorGPT
