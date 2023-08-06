@@ -10,7 +10,21 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 - Offline Usage 
 - Patient Confidentiality
 - Cross Platform Availability (iOS, Android, and Web)
-- Self Improvement 
+- Self Improvement
+
+## Dependencies
+- Datasets        (Access datasets from huggingface hub)
+- huggingface_hub (access huggingface data & models) 
+- numpy           (Use matrix math operations)
+- PyTorch         (Build Deep Learning models)
+- Transformers    (Access models from HuggingFace hub)
+- trl             (Transformer Reinforcement Learning. And fine-tuning.)
+- Bitsandbytes    (makes models smaller, aka 'quantization')
+- tiktoken        (Data enncoding scheme aka 'tokenization')
+- OpenAI          (Create synthetic fine-tuning and reward model data)
+- TVM             (Tensor Virtual Machine, converts onnx model to effiicent cross-platform use)
+- peft            (Parameter Efficient Fine Tuning, use low rank adaption (LoRa) to fine-tune)
+- onnx            (Convert trained model to universal format)
 
 ## Training DoctorGPT
 
@@ -49,15 +63,7 @@ git clone https://github.com/username/repository.git
 cd Web
 ```
 
-
- 
-
-## Dependencies
-- PyTorch
-- HuggingFace
-- Numpy
-- 
-
+## Contributions
 
 ## Credits
 
