@@ -12,11 +12,11 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 - Cross Platform Availability (iOS, Android, and Web)
 - Self Improvement 
 
-### How to Train DoctorGPT
+## How to Train DoctorGPT
 
 - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/path/to/your/notebook)
 
-### Inference instructions
+## Inference instructions
 
 1. iOS
 
