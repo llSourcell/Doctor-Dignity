@@ -53,4 +53,4 @@ Get jupyter [here](https://jupyter.org/install)
 
 ## Credits
 
-Meta, MedAlpaca, Apache, & OctoML 
+Meta, MedAlpaca, Apache, MLC Chat & OctoML 
