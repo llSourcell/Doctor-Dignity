@@ -47,9 +47,31 @@ Get jupyter [here](https://jupyter.org/install)
 
 ## Usage 
 
-1. [iOS](https://github.com/llSourcell/DoctorGPT/edit/main/README.md)
-2. [Android](https://github.com/llSourcell/DoctorGPT/edit/main/README.md)
-3. [Web](https://github.com/llSourcell/DoctorGPT/edit/main/README.md)
+#### iOS
+   
+- Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/ios) the iOS Machine Learning Compilation Chat Repository
+- Step 2: Follow the [installation steps](https://mlc.ai/mlc-llm/docs/deploy/ios.html) 
+- Step 3: Once the app is running on your iOS device or simulator, tap "add model variant"
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: https://huggingface.com/llsourcell/doctorgpt
+- Step 5: Tap 'Add Model' and start chatting locally, inference runs on device. No internet connection needed!
+
+#### Android
+
+- Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/android) the Android Machine Learning Compilation Chat Repository
+- Step 2: Follow the [installation steps]([https://mlc.ai/mlc-llm/docs/deploy/ios.html](https://mlc.ai/mlc-llm/docs/deploy/android.html)) 
+- Step 3: Tap "add model variant"
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: https://huggingface.com/llsourcell/doctorgpt
+- Step 5: Tap 'Add Model' and start chatting locally! No internet needed. 
+
+#### Web
+
+As an experiment in Online Learning using actual human feedback, i decided to deploy the model as a Flask API with a React front-end. In this case, anyone can chat with the model at this URL. After each query, a human can rate the model's response. This rating is then used to further improve the model's performance through reinforcement learning. to run the app, download [flask](https://flask.palletsprojects.com/en/2.3.x/) and then you can run:
+
+```bash
+flask run
+```
+
+Then visit localhost:3000 to interact with it! You can also deploy to [vercel](https://vercel.com/templates/ai)
 
 ## Credits
 
