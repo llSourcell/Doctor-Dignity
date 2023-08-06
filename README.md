@@ -14,7 +14,17 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 
 ## Training DoctorGPT
 
+DoctorGPT is a version of Meta's Llama2 7 billion parameter Large Language Model that was fine-tuned on a Medical Dialogue Dataset, then further improved using Reinforcement Learning & Constitutional AI. 
+
+#### Cloud Training
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/path/to/your/notebook)
+
+#### Local Training with a [jupyter](https://jupyter.org/install) notebook
+
+```bash
+jupyter training.ipynb
+```
 
 ## Using DoctorGPT
 
