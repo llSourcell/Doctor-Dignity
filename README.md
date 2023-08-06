@@ -28,7 +28,8 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 
 ## Installation
 
-1 line install
+Install all dependencies in one line using python's [pip](https://pip.pypa.io/en/stable/installation/)
+
 ```bash
 pip install numpy torch datasets huggingface_hub transformers trl bitsandbytes sentencepiece openai tvm peft onnx
 ```
