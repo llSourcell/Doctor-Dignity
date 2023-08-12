@@ -64,9 +64,9 @@ Get jupyter [here](https://jupyter.org/install)
 - Step 4: Enter the URL for the latest DoctorGPT model to download it: https://huggingface.com/llsourcell/doctorgpt
 - Step 5: Tap 'Add Model' and start chatting locally! No internet needed. 
 
-#### Web
+#### Web (TODO)
 
-As an experiment in Online Learning using actual human feedback, i decided to deploy the model as a Flask API with a React front-end. In this case, anyone can chat with the model at this URL. After each query, a human can rate the model's response. This rating is then used to further improve the model's performance through reinforcement learning. to run the app, download [flask](https://flask.palletsprojects.com/en/2.3.x/) and then you can run:
+As an experiment in Online Learning using actual human feedback, i want to deploy the model as a Flask API with a React front-end. In this case, anyone can chat with the model at this URL. After each query, a human can rate the model's response. This rating is then used to further improve the model's performance through reinforcement learning. to run the app, download [flask](https://flask.palletsprojects.com/en/2.3.x/) and then you can run:
 
 ```bash
 flask run
