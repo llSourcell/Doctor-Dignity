@@ -35,8 +35,8 @@ In order to train the model, you can run the training.ipynb notebook locally or 
 
 #### Cloud Training
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]([ttps://colab.research.google.com/drive/1LxRgY1chk0cmJx6iFE3hWefy3WiTKF_W?usp=sharing](https://colab.research.google.com/drive/1LxRgY1chk0cmJx6iFE3hWefy3WiTKF_W?usp=sharing))
-click here: https://colab.research.google.com/drive/1LxRgY1chk0cmJx6iFE3hWefy3WiTKF_W?usp=sharing
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb)
+click here: https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb
 
 #### Local Training
 
