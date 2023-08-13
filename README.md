@@ -17,7 +17,7 @@ DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam.
 - [Bitsandbytes](https://github.com/TimDettmers/bitsandbytes)    (makes models smaller, aka 'quantization')
 - [Sentencepiece](https://github.com/google/sentencepiece)       (Byte Pair Encoding scheme aka 'tokenization')
 - [OpenAI](https://openai.com)          (Create synthetic fine-tuning and reward model data)
-- [TVM](https://tvm.apache.org/)             (Tensor Virtual Machine, converts onnx model to effiicent cross-platform use)
+- [TVM](https://tvm.apache.org/)             (Tensor Virtual Machine, converts onnx model to efficient cross-platform use)
 - [Peft](https://huggingface.co/blog/peft)            (Parameter Efficient Fine Tuning, use low rank adaption (LoRa) to fine-tune)
 - [Onnx](https://onnx.ai/)            (Convert trained model to universal format)
 
