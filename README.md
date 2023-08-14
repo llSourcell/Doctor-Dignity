@@ -46,14 +46,16 @@ jupyter training.ipynb
 ```
 Get jupyter [here](https://jupyter.org/install)
 
-## Usage 
+## Usage  https://huggingface.co/llSourcell/medllama2_7b
+
+There are 2 huggingface repos, one which is quantized for mobile and one that is not.
 
 #### iOS
    
 - Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/ios) the iOS Machine Learning Compilation Chat Repository
 - Step 2: Follow the [installation steps](https://mlc.ai/mlc-llm/docs/deploy/ios.html) 
 - Step 3: Once the app is running on your iOS device or simulator, tap "add model variant"
-- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.com/llsourcell/doctorgpt](https://huggingface.co/llSourcell/medllama2_7b)
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini] (https://huggingface.co/llSourcell/doctorGPT_mini)
 - Step 5: Tap 'Add Model' and start chatting locally, inference runs on device. No internet connection needed!
 
 #### Android
@@ -61,7 +63,7 @@ Get jupyter [here](https://jupyter.org/install)
 - Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/android) the Android Machine Learning Compilation Chat Repository
 - Step 2: Follow the [installation steps]([https://mlc.ai/mlc-llm/docs/deploy/ios.html](https://mlc.ai/mlc-llm/docs/deploy/android.html)) 
 - Step 3: Tap "add model variant"
-- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.com/llsourcell/doctorgpt](https://huggingface.co/llSourcell/medllama2_7b)
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini](https://huggingface.co/llSourcell/doctorGPT_mini)
 - Step 5: Tap 'Add Model' and start chatting locally! No internet needed. 
 
 #### Web (TODO)
