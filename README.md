@@ -1,81 +1,61 @@
-# Doctor GPT
+<h1>Doctor GPT</h1>
 <p align="center">
-
-<img src="https://i.imgur.com/18jVWiV.png" width="400" height="400">
+    <img src="https://i.imgur.com/18jVWiV.png" width="400" height="400">
 </p>
 
-## Overview
-DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam. This is an open-source project with a mission to provide everyone their own private doctor. DoctorGPT is a version of Meta's [Llama2](https://ai.meta.com/llama/) 7 billion parameter Large Language Model that was fine-tuned on a Medical Dialogue Dataset, then further improved using Reinforcement Learning & Constitutional AI. Since the model is only 3 Gigabytes in size, it fits on any local device, so there is no need to pay an API to use it. It's free, made for offline usage which preserves patient confidentiality, and it's available on iOS, Android, and Web. Pull requests for feature additions and improvements are encouraged.
+<h2>Overview</h2>
+<p>DoctorGPT is a Large Language Model designed to pass the US Medical Licensing Exam. This open-source project aims to provide individuals with their own private doctor. DoctorGPT is based on Meta's Llama2, a 7 billion parameter Large Language Model. It has been fine-tuned on a Medical Dialogue Dataset and further enhanced using Reinforcement Learning & Constitutional AI. The model, at just 3 gigabytes in size, is suitable for local devices, eliminating the need for API payments. It is free, optimized for offline usage to maintain patient confidentiality, and available on iOS, Android, and the Web. Contributions through pull requests for new features and improvements are highly encouraged.</p>
 
-## Dependencies
-- [Numpy](https://numpy.org/install/)           (Use matrix math operations)
-- [PyTorch](https://pytorch.org/)         (Build Deep Learning models)
-- [Datasets](https://huggingface.co/docs/datasets/index)        (Access datasets from huggingface hub)
-- [Huggingface_hub](https://huggingface.co/docs/huggingface_hub/v0.5.1/en/package_reference/hf_api) (access huggingface data & models) 
-- [Transformers](https://huggingface.co/docs/transformers/index)    (Access models from HuggingFace hub)
-- [Trl](https://huggingface.co/docs/trl/index)             (Transformer Reinforcement Learning. And fine-tuning.)
-- [Bitsandbytes](https://github.com/TimDettmers/bitsandbytes)    (makes models smaller, aka 'quantization')
-- [Sentencepiece](https://github.com/google/sentencepiece)       (Byte Pair Encoding scheme aka 'tokenization')
-- [OpenAI](https://openai.com)          (Create synthetic fine-tuning and reward model data)
-- [TVM](https://tvm.apache.org/)             (Tensor Virtual Machine, converts onnx model to efficient cross-platform use)
-- [Peft](https://huggingface.co/blog/peft)            (Parameter Efficient Fine Tuning, use low rank adaption (LoRa) to fine-tune)
-- [Onnx](https://onnx.ai/)            (Convert trained model to universal format)
+<h2>Dependencies</h2>
+<p>To get started, ensure you have the following dependencies installed:</p>
+<ul>
+    <li><a href="https://numpy.org/install/">Numpy</a> (Used for matrix math operations)</li>
+    <li><a href="https://pytorch.org/">PyTorch</a> (Building Deep Learning models)</li>
+    <li><a href="https://huggingface.co/docs/datasets/index">Datasets</a> (Accessing datasets from Hugging Face hub)</li>
+    <li><a href="https://huggingface.co/docs/huggingface_hub/v0.5.1/en/package_reference/hf_api">Huggingface_hub</a> (Accessing Hugging Face data & models)</li>
+    <li><a href="https://huggingface.co/docs/transformers/index">Transformers</a> (Accessing models from Hugging Face hub)</li>
+    <li><a href="https://huggingface.co/docs/trl/index">Trl</a> (Transformer Reinforcement Learning & fine-tuning)</li>
+    <li><a href="https://github.com/TimDettmers/bitsandbytes">Bitsandbytes</a> (Model size reduction, 'quantization')</li>
+    <li><a href="https://github.com/google/sentencepiece">Sentencepiece</a> (Byte Pair Encoding scheme, 'tokenization')</li>
+    <li><a href="https://openai.com">OpenAI</a> (Creating synthetic fine-tuning and reward model data)</li>
+    <li><a href="https://tvm.apache.org/">TVM</a> (Tensor Virtual Machine, converting ONNX model for efficient cross-platform use)</li>
+    <li><a href="https://huggingface.co/blog/peft">Peft</a> (Parameter Efficient Fine Tuning, using low-rank adaption (LoRa) to fine-tune)</li>
+    <li><a href="https://onnx.ai/">Onnx</a> (Converting trained model to universal format)</li>
+</ul>
+<p>To install all dependencies at once using <a href="https://pip.pypa.io/en/stable/installation/">pip</a>:</p>
+<pre><code>pip install numpy torch datasets huggingface_hub transformers trl bitsandbytes sentencepiece openai tvm peft onnx</code></pre>
 
-## Installation
+<h2>Training</h2>
+<p>To train the model, you can run the <code>training.ipynb</code> notebook either locally or on a cloud service like Google Colab Pro. The training process requires a GPU. If you don't have one, Google Colab Pro is a viable option, costing $10/month. The total training time for DoctorGPT, including supervised fine-tuning of the initial Llama model on custom medical data and further improvement via Reinforcement Learning from Constitutional AI Feedback, took 24 hours on a paid Google Colab instance. For detailed insights into the training process, refer to the <code>training.ipynb</code> notebook.</p>
+<h3>Cloud Training</h3>
+<p><a href="https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a> Click here: <a href="https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb">https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb</a></p>
+<h3>Local Training</h3>
+<pre><code>git clone https://github.com/llSourcell/DoctorGPT.git
+jupyter training.ipynb</code></pre>
+<p>Download Jupyter <a href="https://jupyter.org/install">here</a></p>
 
-Install all dependencies in one line using [pip](https://pip.pypa.io/en/stable/installation/)
+<h2>Usage: https://huggingface.co/llSourcell/medllama2_7b</h2>
+<p>DoctorGPT can be accessed through Hugging Face repositories. There are two versions available: one optimized for mobile, and the other not.</p>
+<h3>iOS</h3>
+<ol>
+    <li> <a href="https://github.com/mlc-ai/mlc-llm/tree/main/ios">Download</a> the iOS Machine Learning Compilation Chat Repository</li>
+    <li> Follow the <a href="https://mlc.ai/mlc-llm/docs/deploy/ios.html">installation steps</a></li>
+    <li> Run the app on your iOS device or simulator, then tap "add model variant"</li>
+    <li> Enter the URL for the latest DoctorGPT model to download it: <a href="https://huggingface.co/llSourcell/doctorGPT_mini">https://huggingface.co/llSourcell/doctorGPT_mini</a></li>
+    <li> Tap 'Add Model' to begin local chatting, no internet connection needed!</li>
+</ol>
+<h3>Android</h3>
+<ol>
+    <li> <a href="https://github.com/mlc-ai/mlc-llm/tree/main/android">Download</a> the Android Machine Learning Compilation Chat Repository</li>
+    <li> Follow the <a href="https://mlc.ai/mlc-llm/docs/deploy/android.html">installation steps</a></li>
+    <li> Tap "add model variant"</li>
+    <li> Enter the URL for the latest DoctorGPT model to download it: <a href="https://huggingface.co/llSourcell/doctorGPT_mini">https://huggingface.co/llSourcell/doctorGPT_mini</a></li>
+    <li> Tap 'Add Model' and start chatting locally, no internet required.</li>
+</ol>
+<h3>Web (TODO)</h3>
+<p>As an experiment in Online Learning using human feedback, the model is deployed as a Flask API with a React front-end. Chatting with the model is possible through this URL. After each query, a human rates the model's response, which is then used to further enhance the model's performance through reinforcement learning. To run the app, download Flask and execute:</p>
+<pre><code>flask run</code></pre>
+<p>Visit localhost:3000 to interact with the app! You can also deploy it to <a href="https://vercel.com/templates/ai">Vercel</a></p>
 
-```bash
-pip install numpy torch datasets huggingface_hub transformers trl bitsandbytes sentencepiece openai tvm peft onnx
-```
-
-## Training
-
-In order to train the model, you can run the training.ipynb notebook locally or remotely via a cloud service like Google Colab Pro. The training process requires a GPU, and if you don't have one then the most accessible option i found was using Google Colab [Pro](https://colab.research.google.com/signup) which costs $10/month. The total training time for DoctorGPT including supervised fine-tuning of the initial LLama model on custom medical data, as well as further improving it via Reinforcement Learning from Constitional AI Feedback took 24 hours on a paid instance of Google Colab. If you're interested in learning more about how this process works, details are in the training.ipynb notebook. 
-
-#### Cloud Training
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb)
-click here: https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb
-
-#### Local Training
-
-```bash
-git clone https://github.com/llSourcell/DoctorGPT.git
-jupyter training.ipynb
-```
-Get jupyter [here](https://jupyter.org/install)
-
-## Usage  https://huggingface.co/llSourcell/medllama2_7b
-
-There are 2 huggingface repos, one which is quantized for mobile and one that is not.
-
-#### iOS
-   
-- Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/ios) the iOS Machine Learning Compilation Chat Repository
-- Step 2: Follow the [installation steps](https://mlc.ai/mlc-llm/docs/deploy/ios.html) 
-- Step 3: Once the app is running on your iOS device or simulator, tap "add model variant"
-- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini] (https://huggingface.co/llSourcell/doctorGPT_mini)
-- Step 5: Tap 'Add Model' and start chatting locally, inference runs on device. No internet connection needed!
-
-#### Android
-
-- Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/android) the Android Machine Learning Compilation Chat Repository
-- Step 2: Follow the [installation steps]([https://mlc.ai/mlc-llm/docs/deploy/ios.html](https://mlc.ai/mlc-llm/docs/deploy/android.html)) 
-- Step 3: Tap "add model variant"
-- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini](https://huggingface.co/llSourcell/doctorGPT_mini)
-- Step 5: Tap 'Add Model' and start chatting locally! No internet needed. 
-
-#### Web (TODO)
-
-As an experiment in Online Learning using actual human feedback, i want to deploy the model as a Flask API with a React front-end. In this case, anyone can chat with the model at this URL. After each query, a human can rate the model's response. This rating is then used to further improve the model's performance through reinforcement learning. to run the app, download [flask](https://flask.palletsprojects.com/en/2.3.x/) and then you can run:
-
-```bash
-flask run
-```
-
-Then visit localhost:3000 to interact with it! You can also deploy to [vercel](https://vercel.com/templates/ai)
-
-## Credits
-
-Meta, MedAlpaca, Apache, MLC Chat & OctoML 
+<h2>Credits</h2>
+<p>This project is made possible with contributions from Meta, MedAlpaca, Apache, MLC Chat & OctoML.</p>
