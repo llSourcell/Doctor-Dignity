@@ -55,7 +55,7 @@ There are 2 huggingface repos, one which is quantized for mobile and one that is
 - Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/ios) the iOS Machine Learning Compilation Chat Repository
 - Step 2: Follow the [installation steps](https://mlc.ai/mlc-llm/docs/deploy/ios.html) 
 - Step 3: Once the app is running on your iOS device or simulator, tap "add model variant"
-- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini] (https://huggingface.co/llSourcell/doctorGPT_mini)
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini](https://huggingface.co/llSourcell/doctorGPT_mini)
 - Step 5: Tap 'Add Model' and start chatting locally, inference runs on device. No internet connection needed!
 
 #### Android
