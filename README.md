@@ -66,6 +66,9 @@ There are 2 huggingface repos, one which is quantized for mobile and one that is
 - Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini](https://huggingface.co/llSourcell/doctorGPT_mini)
 - Step 5: Tap 'Add Model' and start chatting locally! No internet needed. 
 
+#### Online Demo
+- [![Open in OpenXLab](https://cdn-static.openxlab.org.cn/app-center/openxlab_app.svg)](https://openxlab.org.cn/apps/detail/camenduru/DoctorGPT) An online DoctorGPT Gradio APP,inference with A100. by [@camenduru](https://github.com/camenduru).
+
 #### Web (TODO)
 
 As an experiment in Online Learning using actual human feedback, i want to deploy the model as a Flask API with a React front-end. In this case, anyone can chat with the model at this URL. After each query, a human can rate the model's response. This rating is then used to further improve the model's performance through reinforcement learning. to run the app, download [flask](https://flask.palletsprojects.com/en/2.3.x/) and then you can run:
