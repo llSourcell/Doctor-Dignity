@@ -37,6 +37,10 @@ final class ChatState: ObservableObject {
     @Published var infoText = ""
     @Published var displayName = ""
     @Published var useVision = false
+    @Published var isTyping = false
+    @Published var public_prompt = ""
+    @Published var isFirstPrompt = true
+
     
     private let modelChatStateLock = NSLock()
     private var modelChatState: ModelChatState = .ready
@@ -46,10 +50,12 @@ final class ChatState: ObservableObject {
     private var modelLib = ""
     private var modelPath = ""
     var localID = ""
+
     
     init() {
         threadWorker.qualityOfService = QualityOfService.userInteractive
         threadWorker.start()
+        isFirstPrompt = true
     }
     
     var isInterruptible: Bool {
@@ -73,6 +79,7 @@ final class ChatState: ObservableObject {
     }
     
     func requestResetChat() {
+        
         assert(isResettable)
         interruptChat(prologue: {
             switchToResetting()
@@ -106,16 +113,74 @@ final class ChatState: ObservableObject {
         })
     }
     
+    
+    func getBioData(prompt: String)  {
+        public_prompt = prompt
+    }
+
     func requestGenerate(prompt: String) {
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        
         assert(isChattable)
         switchToGenerating()
         appendMessage(role: .user, message: prompt)
         appendMessage(role: .bot, message: "")
         threadWorker.push {[weak self] in
             guard let self else { return }
-            chatModule.prefill(prompt)
+            print("hello world")
+            print("Yoyo" + public_prompt)
+            let name = "john"
+            
+//
+//            let systemPrompt = """
+//            You are a licensed medical doctor and are advising a patient. This is their electronic medical record:
+//              Age: \(Age)
+//              Weight: \(Weight)
+//              Height:
+//              Symptoms:
+//              Allergies:
+//              Medications:
+//              Temperature:
+//              Heart_Rate:
+//              Respiratory_Rate:
+//              Oxygen_Saturation:
+//              Waist_Circumference:
+//              Hip_Circumference:
+//              Diastolic_Blood_Pressure:
+//              Systolic_Blood_Pressure:
+//              Albumin:
+//              ALT:
+//              AST:
+//              BUN:
+//              Calcium:
+//              Creatinine:
+//              Glucose:
+//              HbA1c:
+//              Potassium:
+//              Sodium:
+//              Triglycerides:
+//              LDL:
+//              HDL:
+//              eGFR:
+//            They say the following to you:
+//            """
+            
+            
+           if isFirstPrompt  {
+                chatModule.prefill(public_prompt + prompt)
+               isFirstPrompt = false
+           }
+            else {
+               chatModule.prefill(prompt)
+          }
+//            isTyping = true
+//            if isTyping {
+//               // TypingView()
+//            }
             while !chatModule.stopped() {
+                isTyping = true
                 chatModule.decode()
+                feedbackGenerator.impactOccurred()
                 if let newText = chatModule.getMessage() {
                     DispatchQueue.main.async {
                         self.updateMessage(role: .bot, message: newText)
@@ -126,11 +191,28 @@ final class ChatState: ObservableObject {
                     break
                 }
             }
+            isTyping = false
             if getModelChatState() == .generating {
                 if let runtimeStats = chatModule.runtimeStatsText(useVision) {
                     DispatchQueue.main.async {
-                        self.infoText = runtimeStats
-                        self.switchToReady()
+                        let regexPattern = "decode: (\\d+\\.?\\d*) tok/s"
+                        do {
+                                let regex = try NSRegularExpression(pattern: regexPattern, options: [])
+                                if let match = regex.firstMatch(in: runtimeStats, options: [], range: NSRange(location: 0, length: runtimeStats.utf16.count)) {
+                                    if let decodeRange = Range(match.range(at: 1), in: runtimeStats) {
+                                        if let decodeSpeedTokPerS = Double(runtimeStats[decodeRange]) {
+                                            let timePerTokenMS = 1000 / decodeSpeedTokPerS
+                                            var endResult = "Decoding Speed: \(String(format: "%.2f", timePerTokenMS)) ms per token"
+                                            self.infoText = endResult
+                                            self.switchToReady()
+                                        }
+                                    }
+                                }
+                            } catch {
+                            }
+
+                     //   self.infoText = runtimeStats
+                     //   self.switchToReady()
                     }
                 }
             }
@@ -180,12 +262,21 @@ private extension ChatState {
     }
 
     func updateMessage(role: MessageRole, message: String) {
-        messages[messages.count - 1] = MessageData(role: role, message: message)
+        
+        if messages.isEmpty {
+                // Handle empty array; possibly append a new message if that's the correct behavior
+                messages.append(MessageData(role: role, message: message))
+            } else {
+                // Update the last message
+                messages[messages.count - 1] = MessageData(role: role, message: message)
+            }
+        
     }
 
     func clearHistory() {
         messages.removeAll()
         infoText = ""
+        isFirstPrompt = true
     }
 
     func switchToResetting() {
@@ -202,6 +293,10 @@ private extension ChatState {
 
     func switchToReady() {
         setModelChatState(.ready)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {  // Added delay
+//            self.chatModule.prefill("hello")
+//  XC/
+//        }
     }
 
     func switchToTerminating() {
@@ -222,7 +317,7 @@ private extension ChatState {
 
     func interruptChat(prologue: () -> Void, epilogue: @escaping () -> Void) {
         assert(isInterruptible)
-        if getModelChatState() == .ready 
+        if getModelChatState() == .ready
             || getModelChatState() == .failed
             || getModelChatState() == .pendingImageUpload {
             prologue()
@@ -252,6 +347,7 @@ private extension ChatState {
                     self.appendMessage(role: .bot, message: "[System] Upload an image to chat")
                     self.switchToPendingImageUpload()
                 } else {
+                    self.updateMessage(role: .bot, message: "Hi! I'm Dr Dignity, your private health assistant. How can I assist you with your health and wellness journey today?")
                     self.switchToReady()
                 }
             }
@@ -289,7 +385,7 @@ private extension ChatState {
         threadWorker.push {[weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.appendMessage(role: .bot, message: "[System] Initalize...")
+                self.appendMessage(role: .bot, message: "Loading...")
             }
             if prevUseVision {
                 chatModule.unloadImageModule()
@@ -330,10 +426,12 @@ private extension ChatState {
                     self.updateMessage(role: .bot, message: "[System] Upload an image to chat")
                     self.switchToPendingImageUpload()
                 } else {
-                    self.updateMessage(role: .bot, message: "[System] Ready to chat")
+                    
+                    self.updateMessage(role: .bot, message: "Hi! I'm Dr Dignity, your private health assistant. How can I assist you with your health and wellness journey today?")
                     self.switchToReady()
                 }
             }
         }
     }
 }
+

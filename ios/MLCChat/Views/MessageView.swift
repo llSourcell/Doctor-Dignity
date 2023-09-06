@@ -36,7 +36,7 @@ struct ImageView: View {
     let image: UIImage
 
     var body: some View {
-        let background = Color.blue
+        let background = Color.teal
         HStack {
             Spacer()
             Image(uiImage: image)

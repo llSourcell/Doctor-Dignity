@@ -163,7 +163,7 @@ private extension AppState {
         if appConfig?.modelLibs.contains(modelConfig.modelLib) ?? true {
             return true
         }
-        showAlert(message: "Model lib \(modelConfig.modelLib) is not supported")
+     //   showAlert(message: "Model lib \(modelConfig.modelLib) is not supported")
         return false
     }
 

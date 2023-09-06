@@ -1,4 +1,3 @@
-//
 //  MLCChatApp.swift
 //  MLCChat
 //
@@ -14,6 +13,8 @@ struct MLCChatApp: App {
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().tableFooterView = UIView()
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.systemTeal]
+
     }
 
     var body: some Scene {

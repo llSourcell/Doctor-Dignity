@@ -20,42 +20,64 @@ struct ChatView: View {
     @State private var imageConfirmed: Bool = false
     @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var image: UIImage?
+    private let mediumImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    @State private var showFAQ: Bool = false
+
     
     var body: some View {
         VStack {
-            modelInfoView
-            messagesView
+            //  modelInfoView.navigationBarBackButtonHidden(true)  // Sets the background color to green
+            messagesView.foregroundColor(Color.teal)  // Sets the background color to green
             uploadImageView
-            messageInputView
+            messageInputView.foregroundColor(Color.teal)
         }
-        .navigationBarTitle("MLC Chat: \(chatState.displayName)", displayMode: .inline)
-        .navigationBarBackButtonHidden()
+        .alert(isPresented: $showFAQ) {
+            Alert(title: Text("Information"),
+                  message: Text("Dr Dignity is a private local large language model. It is based off the 3 billion parameter redpajama language model and prompted to be a doctor. do not take any of this advice seriously yet. we are working on this fulltime as an open source, open data, and open weights project to ensure it's reliability in the coming months and years."),
+                  dismissButton: .default(Text("Thanks!")))
+        }
+        .navigationBarTitle("Dr Dignity", displayMode: .inline)
+      //  .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                }
-                .buttonStyle(.borderless)
-                .disabled(!chatState.isInterruptible)
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Reset") {
-                    image = nil
-                    imageConfirmed = false
-                    chatState.requestResetChat()
+                Menu {
+                    Button(action: {
+                                  // Add Help action here
+                        self.showFAQ.toggle()
+
+                              }) {
+                                  HStack {
+                                      Image(systemName: "info")
+                                      Text("Info")
+                                  }
+                              }
+                    Button(action: {
+                                    // Add Clear Conversation action here
+                        chatState.requestResetChat()
+                        
+                                })
+ {
+                                    HStack {
+                                        Image(systemName: "trash").foregroundColor(Color.red)
+                                        Text("Clear Conversation").foregroundColor(Color.red)
+                                    }
+                                }.accentColor(Color.red)
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .foregroundColor(Color.teal)
+                        .padding()
+                        .disabled(!chatState.isResettable)
                 }
-                .padding()
-                .disabled(!chatState.isResettable)
             }
         }
+
     }
 }
 
 private extension ChatView {
     var modelInfoView: some View {
         Text(chatState.infoText)
+            .font(.system(size: 12))
             .multilineTextAlignment(.center)
             .opacity(0.5)
             .listRowSeparator(.hidden)
@@ -147,26 +169,50 @@ private extension ChatView {
     }
 
     var messageInputView: some View {
-        HStack {
-            TextField("Inputs...", text: $inputMessage, axis: .vertical)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(minHeight: CGFloat(30))
-                .focused($inputIsFocused)
-                .onSubmit {
-                    let isKeyboardConnected = GCKeyboard.coalesced != nil
-                    if isKeyboardConnected {
-                        send()
+        VStack {
+            HStack {
+                TextField("Ask a health or bioscience question:", text: $inputMessage, axis: .vertical)
+                    .tint(Color.teal)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(minHeight: CGFloat(30))
+                    .focused($inputIsFocused)
+                    .onAppear {
+                        
+                       // DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                          // chatState.requestGenerate(prompt: "You are a Doctor,")
+                     //   }
+                        //                        chatState.requestGenerate(prompt: "hello")
+
                     }
+                    .onSubmit {
+                        let isKeyboardConnected = GCKeyboard.coalesced != nil
+                        if isKeyboardConnected {
+                            send()
+                        }
+                    }
+                Button(action: {
+                    mediumImpactFeedbackGenerator.prepare()
+                    send()
+                    mediumImpactFeedbackGenerator.impactOccurred()
+
+                }) {
+                    
+                    if chatState.isTyping {
+                                        Image(systemName: "stop.circle") // Show Apple logo when typing
+                                    } else {
+                                        Image(systemName: "paperplane") // Show paperplane otherwise
+                                    }
                 }
-            Button("Send") {
-                send()
+                .bold()
+                .disabled(!(chatState.isChattable && inputMessage != ""))
             }
-            .bold()
-            .disabled(!(chatState.isChattable && inputMessage != ""))
+            .frame(minHeight: CGFloat(20))
+            Text("Dr Dignity may produce inaccurate information.").font(.system(size: 12)).foregroundColor(.gray)  // Sets the text color to grey
+                .opacity(0.5) // Your title text here
         }
-        .frame(minHeight: CGFloat(70))
         .padding()
     }
+
 
     func send() {
         inputIsFocused = false
@@ -174,3 +220,4 @@ private extension ChatView {
         inputMessage = ""
     }
 }
+
