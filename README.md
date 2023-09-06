@@ -1,6 +1,8 @@
 # Doctor GPT
 <p align="center">
 
+update sep 6 - i finally compiled a custom model to ios that runs inference way more reliably, im working on android now . stay tuned !
+
 DISCLAIMER - DO NOT TAKE ANY MEDICAL ADVICE FROM DOCTORGPT SERIOUSLY!!!!! This is a work in progress and taking any advice seriously could result in serious injury or even death. 
 
 <img src="https://i.imgur.com/18jVWiV.png" width="400" height="400">
