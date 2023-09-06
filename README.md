@@ -1,76 +1,84 @@
-[discord-url]: https://discord.gg/9Xpy2HGBuD
-
-# MLC LLM
-
-[Project Page](https://mlc.ai/mlc-llm/) | [Documentation](https://mlc.ai/mlc-llm/docs/) | [Blog](https://mlc.ai/blog/2023/05/01/bringing-accelerated-llm-to-consumer-hardware) | [WebLLM](https://webllm.mlc.ai/) | [WebStableDiffusion](https://websd.mlc.ai/) | [Discord][discord-url]
-
-MLC LLM is a **universal solution** that allows **any language models** to be **deployed natively** on a diverse set of hardware backends and native applications, plus a **productive framework** for everyone to further optimize model performance for their own use cases.
-
-Our mission is to **enable everyone to develop, optimize and deploy AI models natively on everyone's devices**.
-
-Everything runs locally  with no server support and accelerated with local GPUs on your phone and laptops.
-[Supported platforms](https://github.com/mlc-ai/mlc-llm/issues/15) include:
-* iPhone, iPad;
-* Android phones;
-* Apple Silicon and x86 MacBooks;
-* AMD, Intel and NVIDIA GPUs via Vulkan on Windows and Linux;
-* NVIDIA GPUs via CUDA on Windows and Linux;
-* WebGPU on browsers (through companion project [WebLLM](https://github.com/mlc-ai/web-llm/tree/main)).
-
-<ins>**[Check out our instruction page to try out!](https://mlc.ai/mlc-llm/docs/get_started/try_out.html)**</ins>
-
+# Doctor GPT
 <p align="center">
-  <img src="site/gif/ios-demo.gif" height="700">
+
+DISCLAIMER - DO NOT TAKE ANY MEDICAL ADVICE FROM DOCTORGPT SERIOUSLY!!!!! This is a work in progress and taking any advice seriously could result in serious injury or even death. 
+
+<img src="https://i.imgur.com/18jVWiV.png" width="400" height="400">
 </p>
 
-## News
+## Overview
+DoctorGPT is a Large Language Model that can pass the US Medical Licensing Exam. This is an open-source project with a mission to provide everyone their own private doctor. DoctorGPT is a version of Meta's [Llama2](https://ai.meta.com/llama/) 7 billion parameter Large Language Model that was fine-tuned on a Medical Dialogue Dataset, then further improved using Reinforcement Learning & Constitutional AI. Since the model is only 3 Gigabytes in size, it fits on any local device, so there is no need to pay an API to use it. It's free, made for offline usage which preserves patient confidentiality, and it's available on iOS, Android, and Web. Pull requests for feature additions and improvements are encouraged.
 
-* [08/02/2023] [Dockerfile](https://github.com/junrushao/llm-perf-bench/) released for CUDA performance benchmarking
-* [07/19/2023] Supports 7B/13B/70B Llama-2
+## Dependencies
+- [Numpy](https://numpy.org/install/)           (Use matrix math operations)
+- [PyTorch](https://pytorch.org/)         (Build Deep Learning models)
+- [Datasets](https://huggingface.co/docs/datasets/index)        (Access datasets from huggingface hub)
+- [Huggingface_hub](https://huggingface.co/docs/huggingface_hub/v0.5.1/en/package_reference/hf_api) (access huggingface data & models) 
+- [Transformers](https://huggingface.co/docs/transformers/index)    (Access models from HuggingFace hub)
+- [Trl](https://huggingface.co/docs/trl/index)             (Transformer Reinforcement Learning. And fine-tuning.)
+- [Bitsandbytes](https://github.com/TimDettmers/bitsandbytes)    (makes models smaller, aka 'quantization')
+- [Sentencepiece](https://github.com/google/sentencepiece)       (Byte Pair Encoding scheme aka 'tokenization')
+- [OpenAI](https://openai.com)          (Create synthetic fine-tuning and reward model data)
+- [TVM](https://tvm.apache.org/)             (Tensor Virtual Machine, converts onnx model to efficient cross-platform use)
+- [Peft](https://huggingface.co/blog/peft)            (Parameter Efficient Fine Tuning, use low rank adaption (LoRa) to fine-tune)
+- [Onnx](https://onnx.ai/)            (Convert trained model to universal format)
 
-## What is MLC LLM?
+## Installation
 
-In recent years, there has been remarkable progress in generative artificial intelligence (AI) and large language models (LLMs), which are becoming increasingly prevalent. Thanks to open-source initiatives, it is now possible to develop personal AI assistants using open-sourced models. However, LLMs tend to be resource-intensive and computationally demanding. To create a scalable service, developers may need to rely on powerful clusters and expensive hardware to run model inference. Additionally, deploying LLMs presents several challenges, such as their ever-evolving model innovation, memory constraints, and the need for potential optimization techniques.
+Install all dependencies in one line using [pip](https://pip.pypa.io/en/stable/installation/)
 
-The goal of this project is to enable the development, optimization, and deployment of AI models for inference across a range of devices, including not just server-class hardware, but also users' browsers, laptops, and mobile apps. To achieve this, we need to address the diverse nature of compute devices and deployment environments. Some of the key challenges include:
+```bash
+pip install numpy torch datasets huggingface_hub transformers trl bitsandbytes sentencepiece openai tvm peft onnx
+```
 
-- Supporting different models of CPUs, GPUs, and potentially other co-processors and accelerators.
-- Deploying on the native environment of user devices, which may not have python or other necessary dependencies readily available.
-- Addressing memory constraints by carefully planning allocation and aggressively compressing model parameters.
+## Training
 
-MLC LLM offers a repeatable, systematic, and customizable workflow that empowers developers and AI system researchers to implement models and optimizations in a productivity-focused, Python-first approach. This methodology enables quick experimentation with new models, new ideas and new compiler passes, followed by native deployment to the desired targets. Furthermore, we are continuously expanding LLM acceleration by broadening TVM backends to make model compilation more transparent and efficient.
+In order to train the model, you can run the training.ipynb notebook locally or remotely via a cloud service like Google Colab Pro. The training process requires a GPU, and if you don't have one then the most accessible option i found was using Google Colab [Pro](https://colab.research.google.com/signup) which costs $10/month. The total training time for DoctorGPT including supervised fine-tuning of the initial LLama model on custom medical data, as well as further improving it via Reinforcement Learning from Constitional AI Feedback took 24 hours on a paid instance of Google Colab. If you're interested in learning more about how this process works, details are in the training.ipynb notebook. 
 
-## How does MLC Enable Universal Native Deployment?
+#### Cloud Training
 
-The cornerstone of our solution is machine learning compilation ([MLC](https://mlc.ai/)), which we leverage to efficiently deploy AI models. We build on the shoulders of open-source ecosystems, including tokenizers from Hugging Face and Google, as well as open-source LLMs like Llama, Vicuna, Dolly, MOSS, RWKV and more. Our primary workflow is based on [Apache TVM Unity](https://github.com/apache/tvm/tree/unity), an exciting ongoing development in the Apache TVM Community.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb)
+click here: https://colab.research.google.com/github/llSourcell/DoctorGPT/blob/main/llama2.ipynb
 
-- Dynamic shape: We bake a language model as a TVM IRModule with native dynamic shape support, avoiding the need for extra padding to the maximum length and reducing both computation amount and memory usage.
-- Composable ML compilation optimizations: we perform many model deployment optimizations, such as better compilation code transformation, fusion, memory planning, library offloading and manual code optimization can be easily incorporated as TVM's IRModule transformations exposed as Python APIs.
-- Quantization: We utilize low-bit quantizations to compress the model weights and leverage TVM's loop-level TensorIR to quickly customize code generations for different compression encoding schemes.
-- Runtime: The final generated libraries run on the native environment, with TVM runtime that comes with minimal dependencies, which supports various GPU driver APIs and native language bindings (C, JavaScript, etc).
+#### Local Training
 
-<img src="site/img/diag.svg" alt="Architecture Diagram" height=""/>
+```bash
+git clone https://github.com/llSourcell/DoctorGPT.git
+jupyter training.ipynb
+```
+Get jupyter [here](https://jupyter.org/install)
 
-Additionally, we also provide a lightweight C++-based example CLI app that showcases how to wrap up the compiled artifacts and necessary pre/post-processing, which will hopefully clarify the workflow to embed them into native applications.
+## Usage  https://huggingface.co/llSourcell/medllama2_7b
 
-As a starting point, MLC generates GPU shaders for CUDA, Vulkan and Metal. It is possible to add more support, such as OpenCL, sycl, webgpu-native, through improvements to TVM compiler and runtime. MLC also supports various CPU targets including ARM and x86 via LLVM.
+There are 2 huggingface repos, one which is quantized for mobile and one that is not.
 
-We heavily rely on open-source ecosystem, more specifically, [TVM Unity](https://discuss.tvm.apache.org/t/establish-tvm-unity-connection-a-technical-strategy/13344), an exciting latest development in the TVM project that enables python-first interactive MLC development experiences that allows us to easily compose new optimizations all in Python, and incrementally bring our app to the environment of interest. We also leveraged optimizations such as fused quantization kernels, first class dynamic shape support and diverse GPU backends.
+#### iOS
+   
+- Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/ios) the iOS Machine Learning Compilation Chat Repository
+- Step 2: Follow the [installation steps](https://mlc.ai/mlc-llm/docs/deploy/ios.html) 
+- Step 3: Once the app is running on your iOS device or simulator, tap "add model variant"
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini] (https://huggingface.co/llSourcell/doctorGPT_mini)
+- Step 5: Tap 'Add Model' and start chatting locally, inference runs on device. No internet connection needed!
 
-## Get Started with MLC-LLM
+#### Android
 
-Please check our [documentation](https://mlc.ai/mlc-llm/docs/get_started/try_out.html) to start the journey with MLC-LLM.
+- Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/android) the Android Machine Learning Compilation Chat Repository
+- Step 2: Follow the [installation steps]([https://mlc.ai/mlc-llm/docs/deploy/ios.html](https://mlc.ai/mlc-llm/docs/deploy/android.html)) 
+- Step 3: Tap "add model variant"
+- Step 4: Enter the URL for the latest DoctorGPT model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini](https://huggingface.co/llSourcell/doctorGPT_mini)
+- Step 5: Tap 'Add Model' and start chatting locally! No internet needed. 
 
-## Links
+#### Web (TODO)
 
-- You might also be interested in [WebLLM](https://github.com/mlc-ai/web-llm/tree/main), our companion derived project that focus on bringing LLM to browsers.
-- Project page for [instructions](site/index.md).
-- [Local build Instructions for ios App](ios/README.md).
-- You might want to check out our online public [Machine Learning Compilation course](https://mlc.ai) for a systematic
-walkthrough of our approaches.
+As an experiment in Online Learning using actual human feedback, i want to deploy the model as a Flask API with a React front-end. In this case, anyone can chat with the model at this URL. After each query, a human can rate the model's response. This rating is then used to further improve the model's performance through reinforcement learning. to run the app, download [flask](https://flask.palletsprojects.com/en/2.3.x/) and then you can run:
 
-## Acknowledgements
+```bash
+flask run
+```
 
-This project is initiated by members from CMU catalyst, UW SAMPL, SJTU, OctoML and the MLC community. We would love to continue developing and supporting the open-source ML community.
+Then visit localhost:3000 to interact with it! You can also deploy to [vercel](https://vercel.com/templates/ai)
 
-This project is only possible thanks to the shoulders open-source ecosystems that we stand on. We want to thank the Apache TVM community and developers of the TVM Unity effort. The open-source ML community members made these models publicly available. PyTorch and Hugging Face communities that make these models accessible. We would like to thank the teams behind Vicuna, SentencePiece, LLaMA, Alpaca, MOSS and RWKV. We also would like to thank the Vulkan, Swift, C++, Python Rust communities that enables this project.
+## Credits
+
+Meta, MedAlpaca, Apache, MLC Chat & OctoML 
+
