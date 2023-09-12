@@ -24,6 +24,7 @@ struct MLCChatApp: App {
                 .task {
                     appState.loadAppConfigAndModels()
                 }
+                .navigationViewStyle(.stack)
         }
     }
 }
