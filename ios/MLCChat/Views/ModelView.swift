@@ -3,7 +3,7 @@ import UIKit
 
 struct CustomTextField: UIViewRepresentable {
     @Binding var text: String
-    
+
     func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
         textField.delegate = context.coordinator
@@ -51,6 +51,9 @@ struct ContentView: View {
 
 
 struct ModelView: View {
+
+    @Environment(\.colorScheme) var colorScheme
+
     @EnvironmentObject private var modelState: ModelState
     @EnvironmentObject private var chatState: ChatState
     @Binding var isRemoving: Bool
@@ -91,10 +94,6 @@ struct ModelView: View {
     @State private var isVitalsExpanded: Bool = false
     @State private var isLabTestResultsExpanded: Bool = false
 
-    
-    
-    
-    
     // State to hold text field values
     @State private var textFields: [String] {
         didSet {
@@ -105,7 +104,7 @@ struct ModelView: View {
     
     init(isRemoving: Binding<Bool>) {
         _isRemoving = isRemoving
-        
+
         // Initialize from UserDefaults
         if let savedTextFields = UserDefaults.standard.array(forKey: "textFields") as? [String] {
             _textFields = State(initialValue: savedTextFields)
@@ -113,7 +112,7 @@ struct ModelView: View {
             _textFields = State(initialValue: Array(repeating: "", count: 5))
         }
     }
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -122,7 +121,7 @@ struct ModelView: View {
                         Text("Age:")
                             .frame(width: 80, alignment: .leading)
                         CustomTextField(text: $Age)
-                            .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                             .cornerRadius(8)
                             .padding()
                     }
@@ -130,7 +129,7 @@ struct ModelView: View {
                         Text("Weight:")
                             .frame(width: 80, alignment: .leading)
                         CustomTextField(text: $Weight)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -138,7 +137,7 @@ struct ModelView: View {
                         Text("Height:")
                             .frame(width: 80, alignment: .leading)
                         CustomTextField(text: $Height)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -152,7 +151,7 @@ struct ModelView: View {
                         Text("Symptoms:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Symptoms)
-                                    .background(Color.gray.opacity(0.1))
+                                    .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -160,7 +159,7 @@ struct ModelView: View {
                         Text("Allergies:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Allergies)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -168,7 +167,7 @@ struct ModelView: View {
                         Text("Medications:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Medications)
-                                    .background(Color.gray.opacity(0.1))
+                                    .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -181,7 +180,7 @@ struct ModelView: View {
                         Text("Temp.:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Temperature)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -189,7 +188,7 @@ struct ModelView: View {
                         Text("Heart Rate:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Heart_Rate)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -197,7 +196,7 @@ struct ModelView: View {
                         Text("Respiratory Rate:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Respiratory_Rate)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -205,7 +204,7 @@ struct ModelView: View {
                         Text("Oxygen Saturation:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Oxygen_Saturation)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -213,7 +212,7 @@ struct ModelView: View {
                         Text("Waist Circum.:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Waist_Circumference)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -221,7 +220,7 @@ struct ModelView: View {
                         Text("Hip Circum.:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Hip_Circumference)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -229,7 +228,7 @@ struct ModelView: View {
                         Text("Diastolic Blood Pressure:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Diastolic_Blood_Pressure)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -237,7 +236,7 @@ struct ModelView: View {
                         Text("Systolic Blood Pressure:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Systolic_Blood_Pressure)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -251,7 +250,7 @@ struct ModelView: View {
                         Text("Albumin:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Albumin)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -259,7 +258,7 @@ struct ModelView: View {
                         Text("ALT:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $ALT)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -267,7 +266,7 @@ struct ModelView: View {
                         Text("AST:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $AST)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -275,7 +274,7 @@ struct ModelView: View {
                         Text("BUN:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $BUN)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -283,7 +282,7 @@ struct ModelView: View {
                         Text("Calcium:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Calcium)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -291,7 +290,7 @@ struct ModelView: View {
                         Text("Creatinine:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Creatinine)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -299,7 +298,7 @@ struct ModelView: View {
                         Text("Glucose:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Glucose)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -307,7 +306,7 @@ struct ModelView: View {
                         Text("HbA1c:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $HbA1c)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -315,7 +314,7 @@ struct ModelView: View {
                         Text("Potassium:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Potassium)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -323,7 +322,7 @@ struct ModelView: View {
                         Text("Sodium:")
                             .frame(width: 100, alignment: .leading)
                         CustomTextField(text: $Sodium)
-                                    .background(Color.gray.opacity(0.1))
+                            .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
                     }
@@ -339,11 +338,7 @@ struct ModelView: View {
             
             
         }
-
     }
-
-    
-    
 
 
 }

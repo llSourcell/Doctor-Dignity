@@ -5,26 +5,58 @@
 //  Created by Yaxing Cai on 5/13/23.
 //
 
-import Foundation
+import UIKit
 
 final class AppState: ObservableObject {
     @Published var models = [ModelState]()
     @Published var exampleModels = [ExampleModelConfig]()
     @Published var chatState = ChatState()
-
+    
     @Published var alertMessage = "" // TODO: Should move out
     @Published var alertDisplayed = false // TODO: Should move out
+
+    @Published var isShowKeyboard: Bool = false
     
     private var appConfig: AppConfig?
     private var localModelIDs = Set<String>()
-
+    
     private let fileManager: FileManager = FileManager.default
     private lazy var cacheDirectoryURL: URL = {
         fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
     }()
-
+    
     private let jsonDecoder = JSONDecoder()
     private let jsonEncoder = JSONEncoder()
+    
+    init() {
+        // Add observer for keyboard show notification
+          NotificationCenter.default.addObserver(
+              self,
+              selector: #selector(keyboardWillShow),
+              name: UIApplication.keyboardWillShowNotification,
+              object: nil
+          )
+
+          // Add observer for keyboard hide notification
+          NotificationCenter.default.addObserver(
+              self,
+              selector: #selector(keyboardWillHide),
+              name: UIApplication.keyboardWillHideNotification,
+              object: nil
+          )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc func keyboardWillShow(notification: Notification) {
+        isShowKeyboard = true
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        isShowKeyboard = false
+    }
 
     func loadAppConfigAndModels() {
         appConfig = loadAppConfig()

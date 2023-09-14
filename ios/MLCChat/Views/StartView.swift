@@ -38,313 +38,322 @@ struct StartView: View {
     @AppStorage("HDL") public var HDL: String = ""
     @AppStorage("eGFR") public var eGFR: String = ""
     
+    @Environment(\.colorScheme) var colorScheme
 
     
     var body: some View {
         NavigationView {
             
-          
+
             ZStack {
-                Color(.systemGray6)
-                                   .edgesIgnoringSafeArea(.all)
-                Text("Hello, World!")  // <-- This is the new line of code
-                                    .font(.largeTitle)
-                                    .foregroundColor(Color.red)
-                                    .padding()
+
+                NavigationLink(destination: ChatView()
+                                .environmentObject(appState.chatState),
+                               isActive: $showChatView) {
+                    EmptyView()
+                }
+                .hidden()
+                .padding(20)
+
+                //                Color(.systemGray6)
+                //                                   .edgesIgnoringSafeArea(.all)
+                //                Text("Hello, World!")  // <-- This is the new line of code
+                //                                    .font(.largeTitle)
+                //                                    .foregroundColor(Color.red)
+                //                                    .padding()
                 // Setting background image
-//                Image("background")
-//                    .resizable()
-//               //     .scaledToFill()
-//                    .edgesIgnoringSafeArea(.all)
-////
-              
-         
+                //                Image("background")
+                //                    .resizable()
+                //               //     .scaledToFill()
+                //                    .edgesIgnoringSafeArea(.all)
+                ////
+
+
                 // Replacing List with ScrollView and LazyVStack
-           //    ScrollView {
-                VStack {
+                //    ScrollView {
+                VStack(alignment: .center) {
                     (
                         Text("Welcome to the waiting room! Here you can optionally fill out your health record, which will give ") +
-                        Text("Dr Dignity")
-                            .foregroundColor(Color.black) +
+                        Text("Dr Dignity").foregroundColor(colorScheme == .dark ? Color.white : Color.black) +
                         Text(" more insight into you.")
                     )
-                    .font(.largeTitle)
+                    .font(appState.isShowKeyboard ? Fonts.welcomeFontMinimized : Fonts.welcomeFont)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(Color.teal)
                     .padding()
-                    
-                    
-         
-                
+                    .padding(.top, appState.isShowKeyboard ? 50 : 15)
+//                    .environment(\.colorScheme, .light)
+
+                    Spacer()
 
                     LazyVStack {
                         Section() {
                             
                             ForEach(appState.models) { modelState in
-                                                            ModelView(isRemoving: $isRemoving)
-                                                                .environmentObject(modelState)
-                                                                .environmentObject(appState.chatState)
-                        
-                        
-                        
-                                                        }
+                                ModelView(isRemoving: $isRemoving)
+                                    .frame(minWidth: 300, minHeight: 500)
+                                    .environmentObject(modelState)
+                                    .environmentObject(appState.chatState)
+
+
+
+                            }
                             
                             
-//                            ModelView(isRemoving: $isRemoving).environmentObject(appState.models[1]).environmentObject(appState.chatState)
-//                        }
-//
-//                            if appState.models.count > 1 {
-//
-//
-//                                        ModelView(isRemoving: $isRemoving)
-//                                            .environmentObject(appState.models[1])
-//                                            .environmentObject(appState.chatState)
-//
-//
-//                            }
+                            //                            ModelView(isRemoving: $isRemoving).environmentObject(appState.models[1]).environmentObject(appState.chatState)
+                            //                        }
+                            //
+                            //                            if appState.models.count > 1 {
+                            //
+                            //
+                            //                                        ModelView(isRemoving: $isRemoving)
+                            //                                            .environmentObject(appState.models[1])
+                            //                                            .environmentObject(appState.chatState)
+                            //
+                            //
+                            //                            }
                         }
                     }
                     // New button code
                     // NavigationLink
-                                        NavigationLink(destination: ChatView()
-                                                        .environmentObject(appState.chatState),
-                                                       isActive: $showChatView) {
-                                            EmptyView()
-                                        }
-                                        .hidden()
-                                        .padding(20)
-                                        
 
-                                        Button("Chat with Dr. Dignity") {
-                                            
-                                            
-                                       
-                                            
-                                            // Button action here
-                                            print("Hello button tapped!")
-                                            
-                                            
-                                                 var systemPrompt = "You are Doctor Dignity, the world's most advanced AI doctor, capable of accurately providing patients with high-quality medical advice. Here is your next patient's health data:\n"
-                                           
-                                                                       if !Age.isEmpty {
-                                                                           systemPrompt += "Age:\(Age)\n"
-                                                                       }
-                                                                       if !Weight.isEmpty {
-                                                                           systemPrompt += "Weight:\(Weight)\n"
-                                                                       }
-                                                                       if !Height.isEmpty {
-                                                                           systemPrompt += "Height:\(Height)\n"
-                                                                       }
-                                                                       if !Symptoms.isEmpty {
-                                                                           systemPrompt += "Symptoms:\(Symptoms)\n"
-                                                                       }
-                                                                       if !Allergies.isEmpty {
-                                                                           systemPrompt += "Allergies:\(Allergies)\n"
-                                                                       }
-                                                                       if !Medications.isEmpty {
-                                                                           systemPrompt += "Medications:\(Medications)\n"
-                                                                       }
-                                                                       if !Temperature.isEmpty {
-                                                                           systemPrompt += "Temperature:\(Temperature)\n"
-                                                                       }
-                                                                       if !Heart_Rate.isEmpty {
-                                                                           systemPrompt += "Heart_Rate:\(Heart_Rate)\n"
-                                                                       }
-                                                                       if !Respiratory_Rate.isEmpty {
-                                                                           systemPrompt += "Respiratory_Rate:\(Respiratory_Rate)\n"
-                                                                       }
-                                                                       if !Oxygen_Saturation.isEmpty {
-                                                                           systemPrompt += "Oxygen_Saturation:\(Oxygen_Saturation)\n"
-                                                                       }
-                                                                       if !Waist_Circumference.isEmpty {
-                                                                           systemPrompt += "Waist_Circumference:\(Waist_Circumference)\n"
-                                                                       }
-                                                                       if !Hip_Circumference.isEmpty {
-                                                                           systemPrompt += "Hip_Circumference:\(Hip_Circumference)\n"
-                                                                       }
-                                                                       if !Diastolic_Blood_Pressure.isEmpty {
-                                                                           systemPrompt += "Diastolic_Blood_Pressure:\(Diastolic_Blood_Pressure)\n"
-                                                                       }
-                                                                       if !Systolic_Blood_Pressure.isEmpty {
-                                                                           systemPrompt += "Systolic_Blood_Pressure:\(Systolic_Blood_Pressure)\n"
-                                                                       }
-                                                                       if !Albumin.isEmpty {
-                                                                           systemPrompt += "Albumin:\(Albumin)\n"
-                                                                       }
-                                                                       if !ALT.isEmpty {
-                                                                           systemPrompt += "ALT:\(ALT)\n"
-                                                                       }
-                                                                       if !AST.isEmpty {
-                                                                           systemPrompt += "AST:\(AST)\n"
-                                                                       }
-                                                                       if !BUN.isEmpty {
-                                                                           systemPrompt += "BUN:\(BUN)\n"
-                                                                       }
-                                                                       if !Calcium.isEmpty {
-                                                                           systemPrompt += "Calcium:\(Calcium)\n"
-                                                                       }
-                                                                       if !Creatinine.isEmpty {
-                                                                           systemPrompt += "Creatinine:\(Creatinine)\n"
-                                                                       }
-                                                                       if !Glucose.isEmpty {
-                                                                           systemPrompt += "Glucose:\(Glucose)\n"
-                                                                       }
-                                                                       if !HbA1c.isEmpty {
-                                                                           systemPrompt += "HbA1c:\(HbA1c)\n"
-                                                                       }
-                                                                       if !Potassium.isEmpty {
-                                                                           systemPrompt += "Potassium:\(Potassium)\n"
-                                                                       }
-                                                                       if !Sodium.isEmpty {
-                                                                           systemPrompt += "Sodium:\(Sodium)\n"
-                                                                       }
-                                                                       if !Triglycerides.isEmpty {
-                                                                           systemPrompt += "Triglycerides:\(Triglycerides)\n"
-                                                                       }
-                                                                       if !LDL.isEmpty {
-                                                                           systemPrompt += "LDL:\(LDL)\n"
-                                                                       }
-                                                                       if !HDL.isEmpty {
-                                                                           systemPrompt += "HDL:\(HDL)\n"
-                                                                       }
-                                                                       if !eGFR.isEmpty {
-                                                                           systemPrompt += "eGFR:\(eGFR)\n"
-                                                                       }
-                                           
-                                                                  //     systemPrompt += "\nNow that you've seen these biomarkers, the patient would like to see you. Please respond exactly like a licensed medical doctor would. Do not make any assumptions about the patient initially, but use the patient's biomarker data you've been to guide your response. The patient asks the following question:\n"
-                                           
-                                                                       systemPrompt += "\nPlease remember this information to provide either an accurate assessment of their health or a comprehensive overall assessment of their health. They would now would like to speak with you. Please respond accordingly. The patient asks the following question:\n"
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            print("information " + systemPrompt)
-                                            appState.chatState.getBioData(prompt: systemPrompt)
-                                                                   appState.models[0].startChat(chatState: appState.chatState)
-                                                                   showChatView = true
-                                     
-                                        }.padding()
+
+                    Spacer()
+
+                    Button("Chat with Dr. Dignity") {
+
+
+
+
+                        // Button action here
+                        print("Hello button tapped!")
+
+
+                        var systemPrompt = "You are Doctor Dignity, the world's most advanced AI doctor, capable of accurately providing patients with high-quality medical advice. Here is your next patient's health data:\n"
+
+                        if !Age.isEmpty {
+                            systemPrompt += "Age:\(Age)\n"
+                        }
+                        if !Weight.isEmpty {
+                            systemPrompt += "Weight:\(Weight)\n"
+                        }
+                        if !Height.isEmpty {
+                            systemPrompt += "Height:\(Height)\n"
+                        }
+                        if !Symptoms.isEmpty {
+                            systemPrompt += "Symptoms:\(Symptoms)\n"
+                        }
+                        if !Allergies.isEmpty {
+                            systemPrompt += "Allergies:\(Allergies)\n"
+                        }
+                        if !Medications.isEmpty {
+                            systemPrompt += "Medications:\(Medications)\n"
+                        }
+                        if !Temperature.isEmpty {
+                            systemPrompt += "Temperature:\(Temperature)\n"
+                        }
+                        if !Heart_Rate.isEmpty {
+                            systemPrompt += "Heart_Rate:\(Heart_Rate)\n"
+                        }
+                        if !Respiratory_Rate.isEmpty {
+                            systemPrompt += "Respiratory_Rate:\(Respiratory_Rate)\n"
+                        }
+                        if !Oxygen_Saturation.isEmpty {
+                            systemPrompt += "Oxygen_Saturation:\(Oxygen_Saturation)\n"
+                        }
+                        if !Waist_Circumference.isEmpty {
+                            systemPrompt += "Waist_Circumference:\(Waist_Circumference)\n"
+                        }
+                        if !Hip_Circumference.isEmpty {
+                            systemPrompt += "Hip_Circumference:\(Hip_Circumference)\n"
+                        }
+                        if !Diastolic_Blood_Pressure.isEmpty {
+                            systemPrompt += "Diastolic_Blood_Pressure:\(Diastolic_Blood_Pressure)\n"
+                        }
+                        if !Systolic_Blood_Pressure.isEmpty {
+                            systemPrompt += "Systolic_Blood_Pressure:\(Systolic_Blood_Pressure)\n"
+                        }
+                        if !Albumin.isEmpty {
+                            systemPrompt += "Albumin:\(Albumin)\n"
+                        }
+                        if !ALT.isEmpty {
+                            systemPrompt += "ALT:\(ALT)\n"
+                        }
+                        if !AST.isEmpty {
+                            systemPrompt += "AST:\(AST)\n"
+                        }
+                        if !BUN.isEmpty {
+                            systemPrompt += "BUN:\(BUN)\n"
+                        }
+                        if !Calcium.isEmpty {
+                            systemPrompt += "Calcium:\(Calcium)\n"
+                        }
+                        if !Creatinine.isEmpty {
+                            systemPrompt += "Creatinine:\(Creatinine)\n"
+                        }
+                        if !Glucose.isEmpty {
+                            systemPrompt += "Glucose:\(Glucose)\n"
+                        }
+                        if !HbA1c.isEmpty {
+                            systemPrompt += "HbA1c:\(HbA1c)\n"
+                        }
+                        if !Potassium.isEmpty {
+                            systemPrompt += "Potassium:\(Potassium)\n"
+                        }
+                        if !Sodium.isEmpty {
+                            systemPrompt += "Sodium:\(Sodium)\n"
+                        }
+                        if !Triglycerides.isEmpty {
+                            systemPrompt += "Triglycerides:\(Triglycerides)\n"
+                        }
+                        if !LDL.isEmpty {
+                            systemPrompt += "LDL:\(LDL)\n"
+                        }
+                        if !HDL.isEmpty {
+                            systemPrompt += "HDL:\(HDL)\n"
+                        }
+                        if !eGFR.isEmpty {
+                            systemPrompt += "eGFR:\(eGFR)\n"
+                        }
+
+                        //     systemPrompt += "\nNow that you've seen these biomarkers, the patient would like to see you. Please respond exactly like a licensed medical doctor would. Do not make any assumptions about the patient initially, but use the patient's biomarker data you've been to guide your response. The patient asks the following question:\n"
+
+                        systemPrompt += "\nPlease remember this information to provide either an accurate assessment of their health or a comprehensive overall assessment of their health. They would now would like to speak with you. Please respond accordingly. The patient asks the following question:\n"
+
+
+
+
+
+
+
+                        print("information " + systemPrompt)
+                        appState.chatState.getBioData(prompt: systemPrompt)
+                        appState.models.first?.startChat(chatState: appState.chatState)
+                        showChatView = true
+
+                    }.padding()
                         .foregroundColor(.white)
                         .background(Color.teal)
                         .cornerRadius(10)
-                                  
+                        .padding(.bottom, 35)
+
                 }
-//                }
-//                .background(Color.clear) // Ensure the background is transparent to see the image
+                //                }
+                //                .background(Color.clear) // Ensure the background is transparent to see the image
+                .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
+
             }.onChange(of: Age) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Weight) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Height) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Symptoms) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Allergies) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Medications) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Temperature) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Heart_Rate) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Respiratory_Rate) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Oxygen_Saturation) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Waist_Circumference) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Hip_Circumference) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Diastolic_Blood_Pressure) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Systolic_Blood_Pressure) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Albumin) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: ALT) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: AST) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: BUN) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Calcium) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Creatinine) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Glucose) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: HbA1c) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Potassium) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Sodium) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: Triglycerides) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: LDL) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: HDL) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             .onChange(of: eGFR) { newValue in
                 appState.chatState.requestResetChat()
-              
-                    }
+
+            }
             
             
             
@@ -363,7 +372,7 @@ struct StartView: View {
                 Text(appState.alertMessage)
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
         .accentColor(Color.teal) // Optional: Setting the accent color to teal
     }
 }

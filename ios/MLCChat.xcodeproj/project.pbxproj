@@ -26,6 +26,9 @@
 		C0D643C829F99B34004DDAA4 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D643C729F99B34004DDAA4 /* MessageView.swift */; };
 		C0DDBDF62A39103F00E9D060 /* ChatState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D643C029F99B07004DDAA4 /* ChatState.swift */; };
 		C0DDBE0D2A3BCD8000E9D060 /* MLCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C0DDBE0C2A3BCD8000E9D060 /* MLCSwift */; };
+		C5093A472AAFD9B200B76C1F /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5093A462AAFD9B200B76C1F /* Fonts.swift */; };
+		C5093A4A2AAFD9D100B76C1F /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5093A492AAFD9D100B76C1F /* UIDeviceExtension.swift */; };
+		C5093A4C2AAFDAB800B76C1F /* UIScreenExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5093A4B2AAFDAB800B76C1F /* UIScreenExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +77,9 @@
 		C0D643C229F99B07004DDAA4 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C0D643C729F99B34004DDAA4 /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		C0DDBE0B2A3BA6F800E9D060 /* MLCSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MLCSwift; sourceTree = "<group>"; };
+		C5093A462AAFD9B200B76C1F /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		C5093A492AAFD9D100B76C1F /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		C5093A4B2AAFDAB800B76C1F /* UIScreenExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				AEC27F012A86337E00254E67 /* Constants.swift */,
+				C5093A462AAFD9B200B76C1F /* Fonts.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -152,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				C09834182A16F4CB00A05B51 /* app-config.json */,
+				C5093A482AAFD9BE00B76C1F /* Extensions */,
 				AEC27F032A86338800254E67 /* Common */,
 				AEC27EF82A85C29000254E67 /* Models */,
 				AEC27EFF2A85EE2800254E67 /* States */,
@@ -185,6 +193,15 @@
 				C0DDBE0B2A3BA6F800E9D060 /* MLCSwift */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		C5093A482AAFD9BE00B76C1F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C5093A492AAFD9D100B76C1F /* UIDeviceExtension.swift */,
+				C5093A4B2AAFDAB800B76C1F /* UIScreenExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +281,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A773CC652A5DC98200467BFE /* ImageProcessing.swift in Sources */,
+				C5093A4C2AAFDAB800B76C1F /* UIScreenExtension.swift in Sources */,
+				C5093A472AAFD9B200B76C1F /* Fonts.swift in Sources */,
 				1453A4D12A1354B9001B909F /* AppState.swift in Sources */,
 				C0D643B329F99A7F004DDAA4 /* MLCChatApp.swift in Sources */,
 				C0DDBDF62A39103F00E9D060 /* ChatState.swift in Sources */,
@@ -275,6 +294,7 @@
 				AEC27EFA2A85C2AC00254E67 /* ParamsConfig.swift in Sources */,
 				AEC27EFC2A85C3B000254E67 /* AppConfig.swift in Sources */,
 				AEC27F022A86337E00254E67 /* Constants.swift in Sources */,
+				C5093A4A2AAFD9D100B76C1F /* UIDeviceExtension.swift in Sources */,
 				1453A4D02A1354B9001B909F /* ModelView.swift in Sources */,
 				1453A4CF2A1354B9001B909F /* StartView.swift in Sources */,
 			);
@@ -408,7 +428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MLCChat/Preview Content\"";
-				DEVELOPMENT_TEAM = 2RVTPP42D4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
@@ -418,6 +438,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arm64 iphone-ipad-minimum-performance-a12";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,7 +447,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/build/lib",
+					"\"$(SRCROOT)/build/lib\"",
 				);
 				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
@@ -461,7 +482,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MLCChat/Preview Content\"";
-				DEVELOPMENT_TEAM = 2RVTPP42D4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
@@ -471,6 +492,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arm64 iphone-ipad-minimum-performance-a12";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -479,7 +501,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/build/lib",
+					"\"$(SRCROOT)/build/lib\"",
 				);
 				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
