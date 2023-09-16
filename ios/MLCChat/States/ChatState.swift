@@ -79,8 +79,11 @@ final class ChatState: ObservableObject {
     }
     
     func requestResetChat() {
+        guard isResettable else {
+            return
+        }
         
-        assert(isResettable)
+//        assert(isResettable)
         interruptChat(prologue: {
             switchToResetting()
         }, epilogue: { [weak self] in
@@ -337,7 +340,10 @@ private extension ChatState {
     func mainResetChat() {
         threadWorker.push {[weak self] in
             guard let self else { return }
-            chatModule.resetChat()
+
+            if isResettable {
+                chatModule.resetChat()
+            } 
             if useVision {
                 chatModule.resetImageModule()
             }
