@@ -3,11 +3,18 @@ import UIKit
 
 struct CustomTextField: UIViewRepresentable {
     @Binding var text: String
+    let keyboardType: UIKeyboardType
 
     func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
         textField.delegate = context.coordinator
         textField.returnKeyType = .done
+        textField.autocorrectionType = .no // Disable autocorrection
+        textField.autocapitalizationType = .none // Disable autocapitalization
+        textField.inputView = nil // Remove custom input views
+        textField.inputAccessoryView = nil // Remove custom accessory views
+        textField.keyboardType = keyboardType
+
         return textField
     }
     
@@ -30,6 +37,9 @@ struct CustomTextField: UIViewRepresentable {
             textField.resignFirstResponder()
             return true
         }
+        func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+            return true
+        }
         
         func textFieldDidChangeSelection(_ textField: UITextField) {
             parent.text = textField.text ?? ""
@@ -39,9 +49,10 @@ struct CustomTextField: UIViewRepresentable {
 
 struct ContentView: View {
     @State private var text: String = ""
-    
+    let keyboardType: UIKeyboardType = .default
+
     var body: some View {
-        CustomTextField(text: $text)
+        CustomTextField(text: $text, keyboardType: keyboardType)
             .background(Color.gray.opacity(0.2))
             .cornerRadius(8)
             .padding()
@@ -120,7 +131,7 @@ struct ModelView: View {
                     HStack {
                         Text("Age:")
                             .frame(width: 80, alignment: .leading)
-                        CustomTextField(text: $Age)
+                        CustomTextField(text: $Age, keyboardType: .numberPad)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                             .cornerRadius(8)
                             .padding()
@@ -128,7 +139,7 @@ struct ModelView: View {
                     HStack {
                         Text("Weight:")
                             .frame(width: 80, alignment: .leading)
-                        CustomTextField(text: $Weight)
+                        CustomTextField(text: $Weight, keyboardType: .numbersAndPunctuation)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -136,7 +147,7 @@ struct ModelView: View {
                     HStack {
                         Text("Height:")
                             .frame(width: 80, alignment: .leading)
-                        CustomTextField(text: $Height)
+                        CustomTextField(text: $Height, keyboardType: .numbersAndPunctuation)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -150,7 +161,7 @@ struct ModelView: View {
                     HStack {
                         Text("Symptoms:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Symptoms)
+                        CustomTextField(text: $Symptoms, keyboardType: .alphabet)
                                     .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -158,7 +169,7 @@ struct ModelView: View {
                     HStack {
                         Text("Allergies:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Allergies)
+                        CustomTextField(text: $Allergies, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -166,7 +177,7 @@ struct ModelView: View {
                     HStack {
                         Text("Medications:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Medications)
+                        CustomTextField(text: $Medications, keyboardType: .alphabet)
                                     .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -179,7 +190,7 @@ struct ModelView: View {
                     HStack {
                         Text("Temp.:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Temperature)
+                        CustomTextField(text: $Temperature, keyboardType: .numbersAndPunctuation)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -187,7 +198,7 @@ struct ModelView: View {
                     HStack {
                         Text("Heart Rate:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Heart_Rate)
+                        CustomTextField(text: $Heart_Rate, keyboardType: .numbersAndPunctuation)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -195,7 +206,7 @@ struct ModelView: View {
                     HStack {
                         Text("Respiratory Rate:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Respiratory_Rate)
+                        CustomTextField(text: $Respiratory_Rate, keyboardType: .default)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -203,7 +214,7 @@ struct ModelView: View {
                     HStack {
                         Text("Oxygen Saturation:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Oxygen_Saturation)
+                        CustomTextField(text: $Oxygen_Saturation, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -211,7 +222,7 @@ struct ModelView: View {
                     HStack {
                         Text("Waist Circum.:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Waist_Circumference)
+                        CustomTextField(text: $Waist_Circumference, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -219,7 +230,7 @@ struct ModelView: View {
                     HStack {
                         Text("Hip Circum.:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Hip_Circumference)
+                        CustomTextField(text: $Hip_Circumference, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -227,7 +238,7 @@ struct ModelView: View {
                     HStack {
                         Text("Diastolic Blood Pressure:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Diastolic_Blood_Pressure)
+                        CustomTextField(text: $Diastolic_Blood_Pressure, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -235,7 +246,7 @@ struct ModelView: View {
                     HStack {
                         Text("Systolic Blood Pressure:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Systolic_Blood_Pressure)
+                        CustomTextField(text: $Systolic_Blood_Pressure, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -249,7 +260,7 @@ struct ModelView: View {
                     HStack {
                         Text("Albumin:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Albumin)
+                        CustomTextField(text: $Albumin, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -257,7 +268,7 @@ struct ModelView: View {
                     HStack {
                         Text("ALT:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $ALT)
+                        CustomTextField(text: $ALT, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -265,7 +276,7 @@ struct ModelView: View {
                     HStack {
                         Text("AST:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $AST)
+                        CustomTextField(text: $AST, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -273,7 +284,7 @@ struct ModelView: View {
                     HStack {
                         Text("BUN:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $BUN)
+                        CustomTextField(text: $BUN, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -281,7 +292,7 @@ struct ModelView: View {
                     HStack {
                         Text("Calcium:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Calcium)
+                        CustomTextField(text: $Calcium, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -289,7 +300,7 @@ struct ModelView: View {
                     HStack {
                         Text("Creatinine:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Creatinine)
+                        CustomTextField(text: $Creatinine, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -297,7 +308,7 @@ struct ModelView: View {
                     HStack {
                         Text("Glucose:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Glucose)
+                        CustomTextField(text: $Glucose, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -305,7 +316,7 @@ struct ModelView: View {
                     HStack {
                         Text("HbA1c:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $HbA1c)
+                        CustomTextField(text: $HbA1c, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -313,7 +324,7 @@ struct ModelView: View {
                     HStack {
                         Text("Potassium:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Potassium)
+                        CustomTextField(text: $Potassium, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
@@ -321,7 +332,7 @@ struct ModelView: View {
                     HStack {
                         Text("Sodium:")
                             .frame(width: 100, alignment: .leading)
-                        CustomTextField(text: $Sodium)
+                        CustomTextField(text: $Sodium, keyboardType: .alphabet)
                             .background(colorScheme == .dark ? Color.clear : Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                     .padding()
