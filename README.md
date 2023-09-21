@@ -24,6 +24,8 @@ Doctor Dignity is a Large Language Model that can pass the US Medical Licensing 
 - [Peft](https://huggingface.co/blog/peft)            (Parameter Efficient Fine Tuning, use low rank adaption (LoRa) to fine-tune)
 - [Onnx](https://onnx.ai/)            (Convert trained model to universal format)
 
+
+
 ## Installation
 
 Install all dependencies in one line using [pip](https://pip.pypa.io/en/stable/installation/)
@@ -32,7 +34,40 @@ Install all dependencies in one line using [pip](https://pip.pypa.io/en/stable/i
 pip install numpy torch datasets huggingface_hub transformers trl bitsandbytes sentencepiece openai tvm peft onnx
 ```
 
-## Training
+## iOS QuickStart v2
+
+1. Clone this repository
+```bash
+git clone https://github.com/llSourcell/Doctor-Dignity
+```
+2. Download the Weights
+```bash
+mkdir -p dist/prebuilt
+git clone https://github.com/mlc-ai/binary-mlc-llm-libs.git dist/prebuilt/lib
+cd dist/prebuilt
+git lfs install
+wget --no-check-certificate 'https://drive.google.com/file/d/1MLy8BDhuTTcXqagzLFMA07JDzqjQYUTB/view?pli=1'
+cd ../..
+```
+3. Build the Tensor Virtual Machine Runtime
+```bash
+git submodule update --init --recursive
+pip install apache-tvm
+cd ./ios
+pip install --pre --force-reinstall mlc-ai-nightly mlc-chat-nightly -f https://mlc.ai/wheels 
+./prepare_libs.sh
+```
+** Find the right version of MLC LLM for your system [here](https://mlc.ai/package/)
+4. Add Weights to Xcode
+```bash
+cd ./ios
+open ./prepare_params.sh # make sure builtin_list only contains "RedPajama-INCITE-Chat-3B-v1-q4f16_1"
+./prepare_params.sh
+```
+5. Open Xcode Project and run! 
+
+
+## DIY Training
 
 In order to train the model, you can run the training.ipynb notebook locally or remotely via a cloud service like Google Colab Pro. The training process requires a GPU, and if you don't have one then the most accessible option i found was using Google Colab [Pro](https://colab.research.google.com/signup) which costs $10/month. The total training time for Doctor Dignity including supervised fine-tuning of the initial LLama model on custom medical data, as well as further improving it via Reinforcement Learning from Constitional AI Feedback took 24 hours on a paid instance of Google Colab. If you're interested in learning more about how this process works, details are in the training.ipynb notebook. 
 
@@ -53,7 +88,7 @@ Get jupyter [here](https://jupyter.org/install)
 
 There are 2 huggingface repos, one which is quantized for mobile and one that is not.
 
-#### iOS
+#### Old iOS app 
    
 - Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/ios) the iOS Machine Learning Compilation Chat Repository
 - Step 2: Follow the [installation steps](https://mlc.ai/mlc-llm/docs/deploy/ios.html) 
@@ -61,7 +96,7 @@ There are 2 huggingface repos, one which is quantized for mobile and one that is
 - Step 4: Enter the URL for the latest Doctor Dignity model to download it: [https://huggingface.co/llSourcell/doctorGPT_mini] (https://huggingface.co/llSourcell/doctorGPT_mini)
 - Step 5: Tap 'Add Model' and start chatting locally, inference runs on device. No internet connection needed!
 
-#### Android
+#### Android app (TODO)
 
 - Step 1: [Download](https://github.com/mlc-ai/mlc-llm/tree/main/android) the Android Machine Learning Compilation Chat Repository
 - Step 2: Follow the [installation steps]([https://mlc.ai/mlc-llm/docs/deploy/ios.html](https://mlc.ai/mlc-llm/docs/deploy/android.html)) 
